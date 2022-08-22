@@ -75,9 +75,16 @@ function mostrarCarrito(productoAgregar) {
 let btnEliminar = document.getElementsByClassName('boton-eliminar')
 for (const btn of btnEliminar){
     btn.addEventListener('click',()=>{
-
+        btn.parentElement.remove();
+        carritoDeCompras = carritoDeCompras.filter(item => item.id != e.target.parentElement.id)
+        actualizarCarrito()
     })
 }
+
+function  actualizarCarrito (){
+    contadorCarrito.innerText= carritoCompras.reduce((acc,el)=> acc + el.cantidad, 0)            
+    precioTotal.innerText = carritoCompras.reduce((acc,el)=> acc + (el.precio * el.cantidad), 0)
+ }    
 
 console.log(contenedorCarrito)
 console.log(carritoCompras)
