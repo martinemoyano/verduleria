@@ -58,11 +58,17 @@ function mostrarCarrito(productoAgregar) {
     div.innerHTML += `<p>${productoAgregar.nombre}</p>
                       <p>Precio: $${productoAgregar.precio}</p>
                       <p id="cant${productoAgregar.id}">cantidad:${productoAgregar.cantidad}</p>
-                      <button class="boton-eliminar" id="${productoAgregar.id}">
-                      <i class="fas fa-trash-alt"></i>
+                      <button class="boton-eliminar btn btn-primary" id="eliminar${productoAgregar.id}">
+                     borrar</i>
                       </button>`
     contenedorCarrito.appendChild(div)
 
+   let btnEliminar = document.getElementById(`eliminar${productoAgregar.id}`)
+   btnEliminar.addEventListener('click',()=>{
+       carritoCompras = carritoCompras.filter(item =>item.id !==productoAgregar.id); 
+       btnEliminar.parentElement.remove(); 
+       actualizarCarrito()
+   })
 }
 
 
@@ -72,11 +78,12 @@ function mostrarCarrito(productoAgregar) {
     }
     
 
+// function eliminar()
 let btnEliminar = document.getElementsByClassName('boton-eliminar')
 for (const btn of btnEliminar){
     btn.addEventListener('click',()=>{
         btn.parentElement.remove();
-        carritoDeCompras = carritoDeCompras.filter(item => item.id != e.target.parentElement.id)
+        carritoCompras = carritoCompras.filter(item => item.id != e.target.parentElement.id)
         actualizarCarrito()
     })
 }
