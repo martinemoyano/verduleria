@@ -65,28 +65,38 @@ function mostrarCarrito(productoAgregar) {
 
    let btnEliminar = document.getElementById(`eliminar${productoAgregar.id}`)
    btnEliminar.addEventListener('click',()=>{
-       carritoCompras = carritoCompras.filter(item =>item.id !==productoAgregar.id); 
-       btnEliminar.parentElement.remove(); 
-       actualizarCarrito()
+       if(productoAgregar.cantidad == 1){
+           carritoCompras = carritoCompras.filter(item=>item.id !== productoAgregar.id)
+           btnEliminar.parentElement.remove()
+           actualizarCarrito()
+       }else{
+        productoAgregar.cantidad = productoAgregar.cantidad - 1
+        document.getElementById(`cant${productoAgregar.id}`).innerHTML = `<p id = "cant${productoAgregar.id}">cantidad:${productoAgregar.cantidad}</p>`
+        actualizarCarrito()
+
+       }
+    //    carritoCompras = carritoCompras.filter(item =>item.id !==productoAgregar.id); 
+    //    btnEliminar.parentElement.remove(); 
+    //    actualizarCarrito()
    })
 }
 
 
     function actualizarCarrito(){
         contadorCarrito.innerText = carritoCompras.length
-        precioTotal.innerText = carritoCompras.reduce((acc,el)=>acc + el.precio,0)
+        precioTotal.innerText = carritoCompras.reduce((acc,el)=>acc + (el.precio * el.cantidad),0)
     }
     
 
 // function eliminar()
-let btnEliminar = document.getElementsByClassName('boton-eliminar')
-for (const btn of btnEliminar){
-    btn.addEventListener('click',()=>{
-        btn.parentElement.remove();
-        carritoCompras = carritoCompras.filter(item => item.id != e.target.parentElement.id)
-        actualizarCarrito()
-    })
-}
+// let btnEliminar = document.getElementsByClassName('boton-eliminar')
+// for (const btn of btnEliminar){
+//     btn.addEventListener('click',()=>{
+//         btn.parentElement.remove();
+//         carritoCompras = carritoCompras.filter(item => item.id != e.target.parentElement.id)
+//         actualizarCarrito()
+//     })
+// }
 
 function  actualizarCarrito (){
     contadorCarrito.innerText= carritoCompras.reduce((acc,el)=> acc + el.cantidad, 0)            
