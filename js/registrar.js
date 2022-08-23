@@ -1,6 +1,6 @@
-document.getElementById('txtNombreUsuario').value="jose";
-document.getElementById('txtClaveUsuario').value="12345";
-document.getElementById('txtEmailUsuario').value="jose@jose.com";
+// document.getElementById('txtNombreUsuario').value="jose";
+// document.getElementById('txtClaveUsuario').value="12345";
+// document.getElementById('txtEmailUsuario').value="jose@jose.com";
 class Subscriptor
 {
      constructor(obj) {

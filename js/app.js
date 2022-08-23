@@ -1,4 +1,5 @@
-let carritoCompras = []
+// let carritoCompras = []
+
 
 const contenedorProductos = document.getElementById('contenedor-productos');
 const contenedorCarrito = document.getElementById('carrito-contenedor');
@@ -8,7 +9,21 @@ const precioTotal = document.getElementById('precio-total');
 
 const buscador = document.getElementById('search');
 
+// para inicializar el carrito de compras
 
+// let carrito
+
+// let carritoLocalStorage = JSON.parse(localStorage.getItem('carrito'))
+
+// if (carritoLocalStorage){
+//     carrito = carritoLocalStorage
+// }else{
+//     carrito = []
+
+// }
+// igual que arriba pero
+// usando el operador logico ||
+let carritoCompras = JSON.parse(localStorage.getItem('carritoCompras'))||[]
 
 
 mostrarProductos(stockProductos)
@@ -41,14 +56,22 @@ if (existe){
     existe.cantidad = existe.cantidad +1
     document.getElementById(`cant${existe.id}`).innerHTML = `<p id = "cant${existe.id}">cantidad:${existe.cantidad}</p>`
     actualizarCarrito()
+    
+        localStorage.setItem("articulo",JSON.stringify(existe));
+    
 }else{
         let productoAgregar = stockProductos.find(item=> item.id == id)
         productoAgregar.cantidad = 1
         carritoCompras.push(productoAgregar);
         mostrarCarrito(productoAgregar)
         actualizarCarrito()
+        
+        // const guardarLocalStorage = (producto, productoAgregar)=>{
+        localStorage.setItem("articulo",JSON.stringify(productoAgregar));
     }
 }
+
+
 
 
 
