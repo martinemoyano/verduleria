@@ -1,13 +1,38 @@
-// let carritoCompras = []
+// let carritoCompras = JSON.parse(localStorage.getItem('producto'))||[]
+
+let carritoCompras = []
 
 
 const contenedorProductos = document.getElementById('contenedor-productos');
+
 const contenedorCarrito = document.getElementById('carrito-contenedor');
 
 const contadorCarrito = document.getElementById('contadorCarrito');
 const precioTotal = document.getElementById('precio-total');
 
 const buscador = document.getElementById('search');
+
+const guardarLocal = (clave,valor) => (localStorage.setItem(clave,valor));
+
+// GUARDAR EL STOCK EN LOCALSTORAGE
+guardarLocal("listaProductos", JSON.stringify(stockProductos));
+
+const almacenados = JSON.parse(localStorage.getItem("listaProductos"));
+const arrayProductosOBJ = [];
+
+
+
+class producto{
+    constructor(obj){
+        this.id = parseFloat(obj.id);
+        this.tipo = obj.tipo;
+        this.nombre = obj.nombre;
+        this.precio = parseFloat(obj.precio);
+        this.img = obj.img;
+    }
+}
+for (const objeto of almacenados)
+arrayProductosOBJ.push(new producto(objeto));
 
 // para inicializar el carrito de compras
 
@@ -23,20 +48,20 @@ const buscador = document.getElementById('search');
 // }
 // igual que arriba pero
 // usando el operador logico ||
-let carritoCompras = JSON.parse(localStorage.getItem('carritoCompras'))||[]
 
 
-mostrarProductos(stockProductos)
+
+mostrarProductos(arrayProductosOBJ)
 
 function mostrarProductos(){
-stockProductos.forEach(item=>{
+arrayProductosOBJ.forEach(item=>{
     let div = document.createElement('div')
-    div.className = 'producto'
+    div.className = 'item'
     div.innerHTML = ` <div class="card" style="width: 16rem;">
                      <img src="${item.img}" class="card-img-top" alt="...">
                     <div class="card-body">
-                    <h5 class="nombreItem">${item.nombre}</h5>
-                    <p class="precioItem">$${item.precio}</p>
+                    <h5 class="nombreitem">${item.nombre}</h5>
+                    <p class="precioitem">$${item.precio}</p>
                     <a id="botonAgregar${item.id}" class="btn btn-primary">Agregar</a>
                    </div>
                    </div>`
@@ -57,7 +82,9 @@ if (existe){
     document.getElementById(`cant${existe.id}`).innerHTML = `<p id = "cant${existe.id}">cantidad:${existe.cantidad}</p>`
     actualizarCarrito()
     
-        localStorage.setItem("articulo",JSON.stringify(existe));
+    // guarda en localStorage
+    guardarLocal("producto", JSON.stringify(existe));
+        // localStorage.setItem("articulo", JSON.stringify(existe));
     
 }else{
         let productoAgregar = stockProductos.find(item=> item.id == id)
@@ -65,12 +92,18 @@ if (existe){
         carritoCompras.push(productoAgregar);
         mostrarCarrito(productoAgregar)
         actualizarCarrito()
-        
-        // const guardarLocalStorage = (producto, productoAgregar)=>{
-        localStorage.setItem("articulo",JSON.stringify(productoAgregar));
-    }
-}
-
+       
+         // guarda en localStorage
+        guardarLocal("producto", JSON.stringify(productoAgregar));
+       
+       
+       
+        //  localStorage.setItem("articulo", JSON.stringify(productoAgregar));
+         
+    }     
+        //  const guardarLocalStorage = ("articulo", productoAgregar)=>{
+        // localStorage.setItem("articulo",JSON.stringify(productoAgregar));
+ }
 
 
 
@@ -126,5 +159,5 @@ function  actualizarCarrito (){
     precioTotal.innerText = carritoCompras.reduce((acc,el)=> acc + (el.precio * el.cantidad), 0)
  }    
 
-console.log(contenedorCarrito)
-console.log(carritoCompras)
+// console.log(contenedorCarrito)
+// console.log(carritoCompras)

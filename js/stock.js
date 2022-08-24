@@ -8,3 +8,4 @@ let stockProductos = [
     {id: 7, tipo: "verdura", nombre: "zanahoria", precio: 170 , img: '/img/zanahoria.jpg'},
     {id: 8, tipo: "verdura", nombre: "cebolla", precio: 120, img: '/img/cebolla.jpg'},
 ]
+
